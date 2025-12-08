@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Étterem</title>
+  </head>
+  <body>
+    <h1>Étterem heti asztalfoglalása</h1>
+    <table>
+      <tr>
+        <th>Hétfő</th>
+        <th>Kedd</th>
+        <th>Szerda</th>
+        <th>Csütörtök</th>
+        <th>Péntek</th>
+        <th>Szombat</th>
+        <th>Vasárnap</th>
+      </tr>
+    </table>
+
+    <h3>Időpontfoglalás</h3>
+    <label for="nev">Név: </label><input name="nev" type="text" /><br />
+    <label for="nap">Nap: </label
+    ><select name="nap" id="nap">
+      <option value="1">Hétfő</option>
+      <option value="2">Kedd</option>
+      <option value="3">Szerda</option>
+      <option value="4">Csütörtök</option>
+      <option value="5">Péntek</option>
+      <option value="6">Szombat</option>
+      <option value="7">Vasárnap</option></select
+    ><br />
+    <label for="ido">Időpont: </label><input name="ido" type="time" /><br />
+    <label for="fo">Személyek száma:  </label><input name="fo" type="number" min="1" max="8" placeholder="2" /><br />
+
+    <button id="create">Asztal foglalása</button>
+
+    <script>
+        const nev = document.getElementById("nev");
+        const nap = document.getElementById("nap");
+        const ido = document.getElementById("ido");
+        const fo = document.getElementById("fo");
+        const create = document.getElementById("create");
+
+
+      if (localStorage.length == 0) {
+        localStorage.setItem(0, {
+          nev: "Kovács András",
+          nap: "hetfo",
+          oraPerc: "12:30",
+          for: 3,
+        });
+        localStorage.setItem(1, {
+          nev: "Szabó Katalin",
+          nap: "kedd",
+          oraPerc: "11:45",
+          for: 6,
+        });
+        localStorage.setItem(2, {
+          nev: "Nagy Eszter",
+          nap: "szombat",
+          oraPerc: "15:00",
+          for: 2,
+        });
+        localStorage.setItem(3, {
+          nev: "Tóth Gergely",
+          nap: "vasarnap",
+          oraPerc: "18:15",
+          for: 4,
+        });
+        localStorage.setItem(4, {
+          nev: "Farkas Péter",
+          nap: "pentek",
+          oraPerc: "17:45",
+          for: 4,
+        });
+      }
+
+      for (let i = 0; i < localStorage.length; i++)
+      {
+        switch (localStorage[i])
+        {
+            case "hetfo":
+            break;
+            case "kedd":
+            break;
+            case "szerda":
+            break;
+            case "csutortok":
+            break;
+            case "pentek":
+            break;
+            case "szombat":
+            break;
+            case "vasarnap":
+            break;
+        }
+      }
+
+    </script>
+  </body>
+</html>
