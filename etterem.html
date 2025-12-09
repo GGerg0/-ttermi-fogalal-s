@@ -77,9 +77,6 @@
 
       function OrderByTime() {
         let t = [];
-
-        
-
         for (let i = 0; i < localStorage.length; i++) {
           t.push(JSON.parse(localStorage[localStorage.key(i)]));
         }
@@ -197,7 +194,7 @@
           for (let j = 0; j < napiFoglalas.length; j++) {
             const row = napok[napiFoglalas[j].nap - 1];
         const cell = row.insertCell(1);
-        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${counter}">kuka</button>`;
+        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${}">kuka</button>`;
         dels.push(document.getElementById(`Btn${counter}`))
         counter++
           }
@@ -214,6 +211,7 @@
       }
       Reload();
 
+      console.log(parseInt("Btn11"))
       
       
     </script>
