@@ -64,7 +64,15 @@
       const ido = document.getElementById("ido");
       const fo = document.getElementById("fo");
       const create = document.getElementById("create");
-      const hetfo = document.querySelector("table>tr:first-child")
+      const napok = [
+        document.querySelector("tr:first-child"),
+        document.querySelector("tr:nth-child(2)"),
+        document.querySelector("tr:nth-child(3)"),
+        document.querySelector("tr:nth-child(4)"),
+        document.querySelector("tr:nth-child(5)"),
+        document.querySelector("tr:nth-child(6)"),
+        document.querySelector("tr:last-child"),
+      ];
 
       function OrderByTime() {
         let t = [];
@@ -75,10 +83,28 @@
         return t;
       }
 
-      function stringToPerc(s)
-      {
-        let tmp = s.split(':')
-        return parseInt(tmp[0]) * 60 + parseInt(tmp[1])
+      function stringToPerc(s) {
+        let tmp = s.split(":");
+        return parseInt(tmp[0]) * 60 + parseInt(tmp[1]);
+      }
+
+      function kiIras(f) {
+        switch (f.nap) {
+          case 1:
+            return `Név: ${f.nev} Nap: Hétfő-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+          case 2:
+            return `Név: ${f.nev} Időpont: Kedd-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+          case 3:
+            return `Név: ${f.nev} Időpont: Szerda-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+          case 4:
+            return `Név: ${f.nev} Időpont: Csütörtök-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+          case 5:
+            return `Név: ${f.nev} Időpont: Péntek-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+          case 6:
+            return `Név: ${f.nev} Időpont: Szombat-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+          case 7:
+            return `Név: ${f.nev} Időpont: Vasárnap-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+        }
       }
 
       if (localStorage.length == 0) {
@@ -129,49 +155,37 @@
         );
       }
 
-      for (let i = 0; i < localStorage.length; i++) {
-        switch (localStorage[i].nap) {
-          case "hetfo":
-            break;
-          case "kedd":
-            break;
-          case "szerda":
-            break;
-          case "csutortok":
-            break;
-          case "pentek":
-            break;
-          case "szombat":
-            break;
-          case "vasarnap":
-            break;
-        }
-      }
+      for (let i = 0; i < localStorage.length; i++) {}
 
       let foglalasok = OrderByTime();
 
       create.addEventListener("click", () => {
         let f = {
           nev: nev.value,
-          nap: nap.value,
+          nap: parseInt(nap.value),
           oraPerc: ido.value,
-          fo: fo.value,
+          fo: parseInt(fo.value),
         };
         localStorage.setItem(localStorage.length, JSON.stringify(f));
+        Reload();
       });
 
-      function Reload() 
-      {
-        for (let i = 1; i < 8; i++)
-      {
-        let napiFoglalas = foglalasok.filter(f => f.nap == i)
-        napiFoglalas.sort((a,b) => stringToPerc(a.oraPerc) - stringToPerc(b.oraPerc))
-        console.log(napiFoglalas)
-
-        
+      function Reload() {
+        for (let i = 1; i < 8; i++) {
+          let napiFoglalas = foglalasok.filter((f) => f.nap == i);
+          napiFoglalas.sort(
+            (a, b) => stringToPerc(a.oraPerc) - stringToPerc(b.oraPerc)
+          );
+          console.log(napiFoglalas);
+          for (let j = 0; j < napiFoglalas.length; j++) {
+            const cell = nap[i-1].insertCell(j+1)
+            cell.innerHTML= `${kiIras(
+              napiFoglalas[j]
+            )} <button>kuka</button>`
+          }
+        }
       }
-      }
-      Reload()
+      Reload();
     </script>
   </body>
 </html>
