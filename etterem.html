@@ -8,7 +8,7 @@
   <body>
     <h1>Étterem heti asztalfoglalása</h1>
     <table>
-      <tr>
+      <tr id="myrow">
         <th>Hétfő</th>
       </tr>
       <tr>
@@ -73,11 +73,15 @@
         document.querySelector("tr:nth-child(6)"),
         document.querySelector("tr:last-child"),
       ];
+      const dels = [];
 
       function OrderByTime() {
         let t = [];
+
+        
+
         for (let i = 0; i < localStorage.length; i++) {
-          t.push(JSON.parse(localStorage[i]));
+          t.push(JSON.parse(localStorage[localStorage.key(i)]));
         }
         t.sort((a, b) => a.nap - b.nap);
         return t;
@@ -157,7 +161,7 @@
 
       for (let i = 0; i < localStorage.length; i++) {}
 
-      let foglalasok = OrderByTime();
+      
 
       create.addEventListener("click", () => {
         let f = {
@@ -166,26 +170,52 @@
           oraPerc: ido.value,
           fo: parseInt(fo.value),
         };
-        localStorage.setItem(localStorage.length, JSON.stringify(f));
-        Reload();
+        counter = 0;
+        while(localStorage.getItem(counter) != null)
+        {
+          counter++
+        }
+        localStorage.setItem(counter, JSON.stringify(f));
+        Reload()
       });
 
       function Reload() {
+
+        let counter = 0;
+        let foglalasok = OrderByTime();
         for (let i = 1; i < 8; i++) {
+          
           let napiFoglalas = foglalasok.filter((f) => f.nap == i);
           napiFoglalas.sort(
             (a, b) => stringToPerc(a.oraPerc) - stringToPerc(b.oraPerc)
           );
-          console.log(napiFoglalas);
+          for (let n = napok[i-1].cells.length; n > 1; n--)
+        {
+          napok[i-1].deleteCell(1)
+          console.log(napok[i-1].cells.length)
+        }
           for (let j = 0; j < napiFoglalas.length; j++) {
-            const cell = nap[i-1].insertCell(j+1)
-            cell.innerHTML= `${kiIras(
-              napiFoglalas[j]
-            )} <button>kuka</button>`
+            const row = napok[napiFoglalas[j].nap - 1];
+        const cell = row.insertCell(1);
+        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${counter}">kuka</button>`;
+        dels.push(document.getElementById(`Btn${counter}`))
+        counter++
           }
         }
+        dels.forEach(b => {
+        b.addEventListener("click",()=> {
+          console.log(b.id)
+          const elem = document.querySelector(`td:has(#${b.id})`)  
+          elem.remove()
+          localStorage.removeItem(localStorage.key(dels.indexOf(b)))
+        })
+      })
+
       }
       Reload();
+
+      
+      
     </script>
   </body>
 </html>
