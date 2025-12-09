@@ -10,17 +10,30 @@
     <table>
       <tr>
         <th>Hétfő</th>
+      </tr>
+      <tr>
         <th>Kedd</th>
+      </tr>
+      <tr>
         <th>Szerda</th>
+      </tr>
+      <tr>
         <th>Csütörtök</th>
+      </tr>
+      <tr>
         <th>Péntek</th>
+      </tr>
+      <tr>
         <th>Szombat</th>
+      </tr>
+      <tr>
         <th>Vasárnap</th>
       </tr>
     </table>
 
     <h3>Időpontfoglalás</h3>
-    <label for="nev">Név: </label><input name="nev" type="text" /><br />
+    <label for="nev">Név: </label
+    ><input name="nev" type="text" id="nev" /><br />
     <label for="nap">Nap: </label
     ><select name="nap" id="nap">
       <option value="1">Hétfő</option>
@@ -31,73 +44,134 @@
       <option value="6">Szombat</option>
       <option value="7">Vasárnap</option></select
     ><br />
-    <label for="ido">Időpont: </label><input name="ido" type="time" /><br />
-    <label for="fo">Személyek száma:  </label><input name="fo" type="number" min="1" max="8" placeholder="2" /><br />
+    <label for="ido">Időpont: </label
+    ><input name="ido" type="time" id="ido" /><br />
+    <label for="fo">Személyek száma: </label
+    ><input
+      name="fo"
+      type="number"
+      min="1"
+      max="8"
+      placeholder="2"
+      id="fo"
+    /><br />
 
     <button id="create">Asztal foglalása</button>
 
     <script>
-        const nev = document.getElementById("nev");
-        const nap = document.getElementById("nap");
-        const ido = document.getElementById("ido");
-        const fo = document.getElementById("fo");
-        const create = document.getElementById("create");
+      const nev = document.getElementById("nev");
+      const nap = document.getElementById("nap");
+      const ido = document.getElementById("ido");
+      const fo = document.getElementById("fo");
+      const create = document.getElementById("create");
+      const hetfo = document.querySelector("table>tr:first-child")
 
-
-      if (localStorage.length == 0) {
-        localStorage.setItem(0, {
-          nev: "Kovács András",
-          nap: "hetfo",
-          oraPerc: "12:30",
-          for: 3,
-        });
-        localStorage.setItem(1, {
-          nev: "Szabó Katalin",
-          nap: "kedd",
-          oraPerc: "11:45",
-          for: 6,
-        });
-        localStorage.setItem(2, {
-          nev: "Nagy Eszter",
-          nap: "szombat",
-          oraPerc: "15:00",
-          for: 2,
-        });
-        localStorage.setItem(3, {
-          nev: "Tóth Gergely",
-          nap: "vasarnap",
-          oraPerc: "18:15",
-          for: 4,
-        });
-        localStorage.setItem(4, {
-          nev: "Farkas Péter",
-          nap: "pentek",
-          oraPerc: "17:45",
-          for: 4,
-        });
+      function OrderByTime() {
+        let t = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          t.push(JSON.parse(localStorage[i]));
+        }
+        t.sort((a, b) => a.nap - b.nap);
+        return t;
       }
 
-      for (let i = 0; i < localStorage.length; i++)
+      function stringToPerc(s)
       {
-        switch (localStorage[i])
-        {
-            case "hetfo":
+        let tmp = s.split(':')
+        return parseInt(tmp[0]) * 60 + parseInt(tmp[1])
+      }
+
+      if (localStorage.length == 0) {
+        localStorage.setItem(
+          0,
+          JSON.stringify({
+            nev: "Kovács András",
+            nap: 1,
+            oraPerc: "12:30",
+            fo: 3,
+          })
+        );
+        localStorage.setItem(
+          1,
+          JSON.stringify({
+            nev: "Szabó Katalin",
+            nap: 2,
+            oraPerc: "11:45",
+            fo: 6,
+          })
+        );
+        localStorage.setItem(
+          2,
+          JSON.stringify({
+            nev: "Nagy Eszter",
+            nap: 6,
+            oraPerc: "15:00",
+            fo: 2,
+          })
+        );
+        localStorage.setItem(
+          3,
+          JSON.stringify({
+            nev: "Tóth Gergely",
+            nap: 7,
+            oraPerc: "18:15",
+            fo: 4,
+          })
+        );
+        localStorage.setItem(
+          4,
+          JSON.stringify({
+            nev: "Farkas Péter",
+            nap: 5,
+            oraPerc: "17:45",
+            fo: 4,
+          })
+        );
+      }
+
+      for (let i = 0; i < localStorage.length; i++) {
+        switch (localStorage[i].nap) {
+          case "hetfo":
             break;
-            case "kedd":
+          case "kedd":
             break;
-            case "szerda":
+          case "szerda":
             break;
-            case "csutortok":
+          case "csutortok":
             break;
-            case "pentek":
+          case "pentek":
             break;
-            case "szombat":
+          case "szombat":
             break;
-            case "vasarnap":
+          case "vasarnap":
             break;
         }
       }
 
+      let foglalasok = OrderByTime();
+
+      create.addEventListener("click", () => {
+        let f = {
+          nev: nev.value,
+          nap: nap.value,
+          oraPerc: ido.value,
+          fo: fo.value,
+        };
+        localStorage.setItem(localStorage.length, JSON.stringify(f));
+      });
+
+      function Reload() 
+      {
+        for (let i = 1; i < 8; i++)
+      {
+        let napiFoglalas = foglalasok.filter(f => f.nap == i)
+        napiFoglalas.sort((a,b) => stringToPerc(a.oraPerc) - stringToPerc(b.oraPerc))
+        console.log(napiFoglalas)
+
+        
+      }
+      }
+      Reload()
     </script>
   </body>
 </html>
