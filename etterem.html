@@ -194,24 +194,34 @@
           for (let j = 0; j < napiFoglalas.length; j++) {
             const row = napok[napiFoglalas[j].nap - 1];
         const cell = row.insertCell(1);
-        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${}">kuka</button>`;
+        let id = 0
+            for (let l = localStorage.length; l <= 0;l--)
+          {
+            if(localStorage[localStorage.key(l)] == napiFoglalas[j])
+          {
+            id=l
+          }
+          }
+        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${id}">kuka</button>`;
         dels.push(document.getElementById(`Btn${counter}`))
         counter++
           }
         }
         dels.forEach(b => {
-        b.addEventListener("click",()=> {
+       if (b != null)
+       {
+        let id = b.id - "Btn"
+         b.addEventListener("click",()=> {
           console.log(b.id)
           const elem = document.querySelector(`td:has(#${b.id})`)  
           elem.remove()
           localStorage.removeItem(localStorage.key(dels.indexOf(b)))
         })
+       }
       })
 
       }
       Reload();
-
-      console.log(parseInt("Btn11"))
       
       
     </script>
