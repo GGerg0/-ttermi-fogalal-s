@@ -37,7 +37,7 @@
     <label for="nap">Nap: </label
     ><select name="nap" id="nap">
       <option value="1">Hétfő</option>
-      <option value="2">Kedd</option>
+      <option value="2" selected>Kedd</option>
       <option value="3">Szerda</option>
       <option value="4">Csütörtök</option>
       <option value="5">Péntek</option>
@@ -45,14 +45,14 @@
       <option value="7">Vasárnap</option></select
     ><br />
     <label for="ido">Időpont: </label
-    ><input name="ido" type="time" id="ido" /><br />
+    ><input name="ido" type="time" id="ido" value="12:30" /><br />
     <label for="fo">Személyek száma: </label
     ><input
       name="fo"
       type="number"
       min="1"
       max="8"
-      placeholder="2"
+      value="2"
       id="fo"
     /><br />
 
@@ -110,7 +110,7 @@
 
       if (localStorage.length == 0) {
         localStorage.setItem(
-          0,
+          "Kovács András",
           JSON.stringify({
             nev: "Kovács András",
             nap: 1,
@@ -119,7 +119,7 @@
           })
         );
         localStorage.setItem(
-          1,
+          "Szabó Katalin",
           JSON.stringify({
             nev: "Szabó Katalin",
             nap: 2,
@@ -128,7 +128,7 @@
           })
         );
         localStorage.setItem(
-          2,
+          "Nagy Eszter",
           JSON.stringify({
             nev: "Nagy Eszter",
             nap: 6,
@@ -137,7 +137,7 @@
           })
         );
         localStorage.setItem(
-          3,
+          "Tóth Gergely",
           JSON.stringify({
             nev: "Tóth Gergely",
             nap: 7,
@@ -146,7 +146,7 @@
           })
         );
         localStorage.setItem(
-          4,
+          "Farkas Péter",
           JSON.stringify({
             nev: "Farkas Péter",
             nap: 5,
@@ -156,32 +156,26 @@
         );
       }
 
-      for (let i = 0; i < localStorage.length; i++) {}
-
-      
 
       create.addEventListener("click", () => {
+        if(nev.value != "")
+      {
         let f = {
           nev: nev.value,
           nap: parseInt(nap.value),
           oraPerc: ido.value,
           fo: parseInt(fo.value),
         };
-        counter = 0;
-        while(localStorage.getItem(counter) != null)
-        {
-          counter++
-        }
-        localStorage.setItem(counter, JSON.stringify(f));
+        localStorage.setItem(f.nev, JSON.stringify(f));
+      }
         Reload()
       });
 
       function Reload() {
 
-        let counter = 0;
-        let foglalasok = OrderByTime();
+        foglalasok = OrderByTime();
         for (let i = 1; i < 8; i++) {
-          
+
           let napiFoglalas = foglalasok.filter((f) => f.nap == i);
           napiFoglalas.sort(
             (a, b) => stringToPerc(a.oraPerc) - stringToPerc(b.oraPerc)
@@ -195,35 +189,27 @@
             const row = napok[napiFoglalas[j].nap - 1];
         const cell = row.insertCell(1);
         let id = 0
-            for (let l = localStorage.length; l <= 0;l--)
-          {
-            if(localStorage[localStorage.key(l)] == napiFoglalas[j])
-          {
-            id=l
-          }
-          }
-        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${id}">kuka</button>`;
-        dels.push(document.getElementById(`Btn${counter}`))
-        counter++
+        cell.innerHTML = `${kiIras(napiFoglalas[j])} <button class="delete" id="Btn${foglalasok.indexOf(napiFoglalas[j])}">kuka</button>`;
+        dels.push(document.getElementById(`Btn${foglalasok.indexOf(napiFoglalas[j])}`))
+
           }
         }
         dels.forEach(b => {
-       if (b != null)
-       {
-        let id = b.id - "Btn"
+        let id = parseInt(b.id.slice(3))
+        console.log(id)
          b.addEventListener("click",()=> {
-          console.log(b.id)
-          const elem = document.querySelector(`td:has(#${b.id})`)  
+
+          const elem = document.querySelector(`td:has(#${b.id})`)
           elem.remove()
-          localStorage.removeItem(localStorage.key(dels.indexOf(b)))
+          localStorage.removeItem(foglalasok[id].nev)
         })
-       }
+
       })
 
       }
+
+      let foglalasok = OrderByTime();
       Reload();
-      
-      
     </script>
   </body>
 </html>
