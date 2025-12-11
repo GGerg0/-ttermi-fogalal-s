@@ -22,3 +22,6 @@ td>button{
     display: block;
     float: left;
 }
+td{
+    padding: 10px;
+}
