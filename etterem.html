@@ -88,19 +88,19 @@
       function kiIras(f) {
         switch (f.nap) {
           case 1:
-            return `Név: ${f.nev} Nap: Hétfő-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Nap: Hétfő-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
           case 2:
-            return `Név: ${f.nev} Időpont: Kedd-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Időpont: Kedd-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
           case 3:
-            return `Név: ${f.nev} Időpont: Szerda-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Időpont: Szerda-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
           case 4:
-            return `Név: ${f.nev} Időpont: Csütörtök-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Időpont: Csütörtök-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
           case 5:
-            return `Név: ${f.nev} Időpont: Péntek-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Időpont: Péntek-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
           case 6:
-            return `Név: ${f.nev} Időpont: Szombat-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Időpont: Szombat-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
           case 7:
-            return `Név: ${f.nev} Időpont: Vasárnap-${f.oraPerc} Foglaltak száma: ${f.fo}`;
+            return `<div><p>Név: ${f.nev} <br>Időpont: Vasárnap-${f.oraPerc} <br>Foglaltak száma: ${f.fo}</p></div>`;
         }
       }
 
@@ -182,11 +182,13 @@
             let id = 0;
             cell.innerHTML = `${kiIras(
               napiFoglalas[j]
-            )} <button class="edit" id="edit${foglalasok.indexOf(
-              napiFoglalas[j]
-            )}">edit</button> <button class="delete" id="Btn${foglalasok.indexOf(
-              napiFoglalas[j]
-            )}">kuka</button>`;
+            )} <div>
+              <button class="edit" id="edit${foglalasok.indexOf(
+                napiFoglalas[j]
+              )}">edit</button> <button class="delete" id="Btn${foglalasok.indexOf(
+                napiFoglalas[j]
+              )}">kuka</button>
+            </div>`;
             dels.push(
               document.getElementById(
                 `Btn${foglalasok.indexOf(napiFoglalas[j])}`
@@ -223,7 +225,7 @@
             });
             document.getElementById("create").disabled = true;
             const elem = document.querySelector(`td:has(#${b.id})`);
-            elem.innerHTML = `<label for="nev">Név: </label ><input name="nev" type="text" id="enev" /> <label for="nap">Nap: </label ><select name="nap" id="enap"> <option value="1">Hétfő</option> <option value="2" selected>Kedd</option> <option value="3">Szerda</option> <option value="4">Csütörtök</option> <option value="5">Péntek</option> <option value="6">Szombat</option> <option value="7">Vasárnap</option></select > <label for="ido">Időpont: </label ><input name="ido" type="time" id="eido" value="12:30" /> <label for="efo">Személyek száma: </label ><input name="fo" type="number" min="1" max="8"  id="efo" /> <button id="ok">Ok</button>`;
+            elem.innerHTML = `<label for="nev">Név: </label ><input name="nev" type="text" id="enev" /> <br><label for="nap">Nap: </label ><select name="nap" id="enap"> <option value="1">Hétfő</option> <option value="2" selected>Kedd</option> <option value="3">Szerda</option> <option value="4">Csütörtök</option> <option value="5">Péntek</option> <option value="6">Szombat</option> <option value="7">Vasárnap</option></select > <br><label for="ido">Időpont: </label ><input name="ido" type="time" id="eido" value="12:30" /> <br><label for="efo">Személyek száma: </label ><input name="fo" type="number" min="1" max="8"  id="efo" /> <button id="ok">Ok</button>`;
             const ok = document.getElementById("ok");
             const enev = document.getElementById("enev");
             const enap = document.getElementById("enap");
@@ -232,7 +234,7 @@
 
             enev.value = foglalasok[id].nev;
             enap.value = foglalasok[id].nap;
-            eido.value = foglalasok[id].ido;
+            eido.value = foglalasok[id].oraPerc;
             efo.value = foglalasok[id].fo;
             console.log(foglalasok[id].ido);
             ok.addEventListener("click", () => {
