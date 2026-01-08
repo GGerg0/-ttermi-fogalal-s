@@ -16,8 +16,9 @@ tr:nth-child(even)
     background-color: lightblue;
 }
 table+div{   
+    margin: 1vh 1vw;
     padding: 10px;
-    border: 5px solid black;
+    outline: 5px groove skyblue;
     width: 20vw;
     height: 30vh;
 }
