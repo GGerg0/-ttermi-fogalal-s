@@ -247,16 +247,12 @@
                 };
                 localStorage.removeItem(foglalasok[id].nev);
                 localStorage.setItem(f.nev,JSON.stringify(f));
-                dels.forEach((d) => {
-                  d.disabled = false;
-                  edits.forEach((e) => {
-                    e.disabled = true;
-                  });
+                
                   document.querySelectorAll("input,select").forEach((i) => {
                     i.disabled = false;
                   });
                   document.getElementById("create").disabled = false;
-                });
+                
                 Reload();
               }
             });
