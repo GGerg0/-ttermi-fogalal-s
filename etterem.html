@@ -7,7 +7,28 @@
     <title>Étterem</title>
   </head>
   <body>
-    <h1>Étterem heti asztalfoglalása</h1>
+    <h1>Étterem asztalfoglalás</h1>
+    <div id="foglalas">
+    <h3>Időpontfoglalás</h3>
+    <label for="nev">Név: </label
+    ><input name="nev" type="text" id="nev" /><br />
+    <label for="nap">Nap: </label
+    ><select name="nap" id="nap">
+      <option value="1">Hétfő</option>
+      <option value="2" selected>Kedd</option>
+      <option value="3">Szerda</option>
+      <option value="4">Csütörtök</option>
+      <option value="5">Péntek</option>
+      <option value="6">Szombat</option>
+      <option value="7">Vasárnap</option></select
+    ><br />
+    
+      <label for="ido">Időpont: </label
+      ><input name="ido" type="time" id="ido" value="12:30" /><br />
+      <label for="fo">Személyek száma: </label
+      ><input name="fo" type="number" min="1" max="8" value="2" id="fo" /><br />
+      <button id="create">Asztal foglalása</button>
+    </div>
     <table>
       <tr id="myrow">
         <th>Hétfő</th>
@@ -31,27 +52,7 @@
         <th>Vasárnap</th>
       </tr>
     </table>
-<div>
-    <h3>Időpontfoglalás</h3>
-    <label for="nev">Név: </label
-    ><input name="nev" type="text" id="nev" /><br />
-    <label for="nap">Nap: </label
-    ><select name="nap" id="nap">
-      <option value="1">Hétfő</option>
-      <option value="2" selected>Kedd</option>
-      <option value="3">Szerda</option>
-      <option value="4">Csütörtök</option>
-      <option value="5">Péntek</option>
-      <option value="6">Szombat</option>
-      <option value="7">Vasárnap</option></select
-    ><br />
-    
-      <label for="ido">Időpont: </label
-      ><input name="ido" type="time" id="ido" value="12:30" /><br />
-      <label for="fo">Személyek száma: </label
-      ><input name="fo" type="number" min="1" max="8" value="2" id="fo" /><br />
-      <button id="create">Asztal foglalása</button>
-    </div>
+
 
     <script>
       const nev = document.getElementById("nev");
@@ -185,9 +186,9 @@
             )} <div>
               <button class="edit" id="edit${foglalasok.indexOf(
                 napiFoglalas[j]
-              )}">edit</button> <button class="delete" id="Btn${foglalasok.indexOf(
+              )}">Szerkesztés</button> <button class="delete" id="Btn${foglalasok.indexOf(
                 napiFoglalas[j]
-              )}">kuka</button>
+              )}">Törlés</button>
             </div>`;
             dels.push(
               document.getElementById(

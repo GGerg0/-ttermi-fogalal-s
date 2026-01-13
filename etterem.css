@@ -1,7 +1,19 @@
 *{
     box-sizing: border-box;
+    font-family: Arial;
 }
 
+body{
+    background-image: radial-gradient(#f5f6ff 80%,lightblue);
+}
+
+h1{
+    text-align: center;
+}
+
+table{
+    margin: 20px;
+}
 
 th,td{
     border: 1px solid black;
@@ -15,22 +27,44 @@ tr:nth-child(even)
 {
     background-color: lightblue;
 }
-table+div{   
-    margin: 1vh 1vw;
+tr:nth-child(odd)
+{
+    background-color: white;
+}
+#foglalas{   
+    background-color: white;
+    margin: 1vh auto;
     padding: 10px;
     outline: 5px groove skyblue;
-    width: 20vw;
-    height: 30vh;
+    width: 15vw;
+    text-align: center;
+    border-radius: 5px;
 }
 
-table+div>*{
+#foglalas>*{
     margin: 5px;
+    width: auto;
+}
+
+#foglalas>button{
+    padding: 5px;
+    background-color: #f5f6ff;
+    border-color: skyblue;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+#foglalas>button:hover , button:hover{
+    border-color: blue;
 }
 
 td>div>button{
     margin: auto;
-    width: 50px;
+    width: auto;
     height: 50px;
+    background-color: #f5f6ff;
+    border-style: solid;
+    border-radius: 5px;
 }
 td>div:nth-child(2)
 {
@@ -44,5 +78,14 @@ td>div:nth-child(1)>p
 td>div{
     display: inline;
     margin: 5px;
+}
+
+tr:nth-child(even):has(td:hover)
+{
+    background-color: #86e3ff;
+}
+tr:nth-child(odd):has(td:hover)
+{
+    background-color: #dbdbdb;
 }
 
