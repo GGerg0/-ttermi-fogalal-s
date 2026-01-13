@@ -89,3 +89,6 @@ tr:nth-child(odd):has(td:hover)
     background-color: #dbdbdb;
 }
 
+th{
+    text-align: center;
+}
